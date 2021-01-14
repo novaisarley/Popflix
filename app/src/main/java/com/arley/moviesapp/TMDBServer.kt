@@ -10,13 +10,13 @@ interface TMDBServer {
 
     //Returns the top rated movies
     @GET("movie/top_rated?api_key=${Constants.API_KEY}")
-    fun getTopRatedMovies() : Call<List<MoviesResult>>
+    fun getTopRatedMovies() : Call<MoviesResult>
 
     //Returns the current popular movies
     @GET("movie/popular?api_key=${Constants.API_KEY}")
-    fun getPopularMovies() : Call<List<MoviesResult>>
+    fun getPopularMovies() : Call<MoviesResult>
 
     //Returns the cast and the crew of a especific movie by movie_id
     @GET("movie/{movie_id}/credits?api_key=${Constants.API_KEY}")
-    fun getCredits(@Path("movie_id") movieId : Int) : Call<List<CreditsResult>>
+    fun getCredits(@Path("movie_id") movieId : Int) : Call<CreditsResult>
 }

@@ -7,8 +7,8 @@ data class CreditsResult(
     var id: Int,
 
     @SerializedName("cast")
-    var cast: MutableList<CastMember>,
+    var cast: List<CastMember>,
 
     @SerializedName("crew")
-    var crew: MutableList<CrewMember>
+    var crew: List<CrewMember>
 )

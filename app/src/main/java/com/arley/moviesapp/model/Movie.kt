@@ -9,6 +9,9 @@ data class Movie(
     @SerializedName("backdrop_path")
     var backdropPath: String?,
 
+    @SerializedName("genre_id")
+    var genre_id: List<Long>,
+
     @SerializedName("id")
     var id: Int,
 
@@ -36,6 +39,6 @@ data class Movie(
     @SerializedName("vote_average")
     var voteAverage: Float,
 
-    @SerializedName("adult")
+    @SerializedName("vote_count")
     var voteCount: Int
 )
