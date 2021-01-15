@@ -11,11 +11,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.arley.moviesapp.Constants
 import com.arley.moviesapp.R
 import com.arley.moviesapp.model.Movie
+import com.arley.moviesapp.model.TvShow
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_movie.*
 
 
-class ShowsAdapter(private val moviesList : List<Movie>, val context: Context) : RecyclerView.Adapter<ShowsAdapter.ViewHolder>() {
+class ShowsAdapter(private val tvShowsList : List<TvShow>, val context: Context, private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<ShowsAdapter.ViewHolder>() {
 
     /**
      * Provide a reference to the type of views that you are using
@@ -43,14 +44,17 @@ class ShowsAdapter(private val moviesList : List<Movie>, val context: Context) :
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.ivPoster.clipToOutline = true
-        holder.tvTitle.text = moviesList.get(position).originalname
+        holder.tvTitle.text = tvShowsList.get(position).originalname
+        holder.ivPoster.setOnClickListener{
+            itemClickListener.onItemSerieClickListener(tvShowsList.get(position))
+        }
         Glide.with(context)
-            .load(Constants.TMDB_HIGH_IMAGE_BASE_URL+moviesList.get(position).posterPath)
+            .load(Constants.TMDB_HIGH_IMAGE_BASE_URL+tvShowsList.get(position).posterPath)
             .into(holder.ivPoster)
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount(): Int {
-        return moviesList.size
+        return tvShowsList.size
     }
 }
