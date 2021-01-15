@@ -21,6 +21,9 @@ data class Movie(
     @SerializedName("original_title")
     var originalTitle: String,
 
+    @SerializedName("original_name")
+    var originalname: String,
+
     @SerializedName("overview")
     var overview: String,
 
