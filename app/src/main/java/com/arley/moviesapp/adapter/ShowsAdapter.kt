@@ -1,6 +1,7 @@
 package com.arley.moviesapp.adapter
 
 import android.content.Context
+import android.graphics.drawable.AnimationDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,11 @@ class ShowsAdapter(private val tvShowsList : List<TvShow>, val context: Context,
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val animationDrawable = holder.ivPoster.background as AnimationDrawable
+        animationDrawable.setEnterFadeDuration(2000)
+        animationDrawable.setExitFadeDuration(3000)
+        animationDrawable.start()
+
         holder.ivPoster.clipToOutline = true
         holder.tvTitle.text = tvShowsList.get(position).name
         holder.ivPoster.setOnClickListener{

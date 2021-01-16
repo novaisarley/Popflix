@@ -29,16 +29,19 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
     lateinit var moviesRecyclerView : RecyclerView
     lateinit var showsRecyclerView : RecyclerView
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         pb_popular_movies.visibility = View.VISIBLE
         pb_popular_tvshows.visibility = View.VISIBLE
+        pb_popular_movies.visibility = View.GONE
 
         moviesRecyclerView = rv_movies
         showsRecyclerView = rv_shows
 
+        setInitialLists()
         getPopularMovies()
         getPopularShows()
 
@@ -111,6 +114,26 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
 //      val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
         showsRecyclerView.layoutManager = layoutManager
         pb_popular_tvshows.visibility = View.GONE
+    }
+
+    private fun setInitialLists() {
+        var initialMoviesList : MutableList<Movie> = ArrayList()
+        var initialTvShowsList : MutableList<TvShow> = ArrayList()
+
+        for(i in 0..10) initialMoviesList.add(Movie.createEmptyMovie())
+        for(i in 0..10) initialTvShowsList.add(TvShow.createEmptyTvShow())
+
+        moviesRecyclerView.adapter = MovieAdapter( initialMoviesList,this, this)
+        val layoutManager1 = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        moviesRecyclerView.layoutManager = layoutManager1
+        pb_popular_movies.visibility = View.GONE
+
+        showsRecyclerView.adapter = ShowsAdapter( initialTvShowsList,this, this)
+        val layoutManager2 = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        showsRecyclerView.layoutManager = layoutManager2
+        pb_popular_tvshows.visibility = View.GONE
+
+
     }
 
     override fun onResume() {

@@ -76,8 +76,16 @@ data class TvShow(
             return TvShow(parcel)
         }
 
+        fun createEmptyTvShow(): TvShow {
+            val tvShow: TvShow = TvShow(backdropPath = "", id = 0, posterPath = "", name = "Loading...",
+                firstAirDate = "", voteCount = 0, voteAverage = 0.0f, popularity = 0.0, overview = "",
+                originalname = "Loading...", originalLanguage = "")
+            return tvShow
+        }
+
         override fun newArray(size: Int): Array<TvShow?> {
             return arrayOfNulls(size)
         }
     }
+
 }

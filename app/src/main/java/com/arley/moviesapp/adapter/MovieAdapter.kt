@@ -1,11 +1,14 @@
 package com.arley.moviesapp.adapter
 
 import android.content.Context
+import android.graphics.drawable.AnimationDrawable
+import android.graphics.drawable.TransitionDrawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.arley.moviesapp.Constants
 import com.arley.moviesapp.R
@@ -41,6 +44,12 @@ class MovieAdapter(private val moviesList : List<Movie>, val context: Context, v
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+
+        val animationDrawable = holder.ivPoster.background as AnimationDrawable
+        animationDrawable.setEnterFadeDuration(3000)
+        animationDrawable.setExitFadeDuration(3000)
+        animationDrawable.start()
+
         holder.ivPoster.clipToOutline = true
         holder.tvTitle.text = moviesList.get(position).title
         holder.ivPoster.setOnClickListener{

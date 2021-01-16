@@ -86,8 +86,19 @@ data class Movie(
             return Movie(parcel)
         }
 
+        fun createEmptyMovie(): Movie {
+            val movie: Movie = Movie(
+                adult = false, posterPath = "", title = "Loading...", backdropPath = "",
+                id = 0, originalLanguage = "", originalname = "", originalTitle = "", overview = "",
+                popularity = 0.0, releaseDate = "", voteAverage = 0.0f, voteCount = 0
+            )
+            return movie
+        }
+
         override fun newArray(size: Int): Array<Movie?> {
             return arrayOfNulls(size)
         }
     }
+
+
 }
