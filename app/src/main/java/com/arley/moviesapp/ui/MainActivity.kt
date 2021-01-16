@@ -3,6 +3,7 @@ package com.arley.moviesapp.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.TableLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +35,6 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
 
         pb_popular_movies.visibility = View.VISIBLE
         pb_popular_tvshows.visibility = View.VISIBLE
-
 
         moviesRecyclerView = rv_movies
         showsRecyclerView = rv_shows

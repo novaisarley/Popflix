@@ -1,47 +1,93 @@
 package com.arley.moviesapp.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 
 data class Movie(
     @SerializedName("adult")
-    var adult: Boolean,
+    val adult: Boolean,
 
     @SerializedName("backdrop_path")
-    var backdropPath: String?,
-
-    @SerializedName("genre_id")
-    var genre_id: List<Long>,
+    val backdropPath: String?,
 
     @SerializedName("id")
-    var id: Int,
+    val id: Int,
 
     @SerializedName("original_language")
-    var originalLanguage: String,
+    val originalLanguage: String?,
 
     @SerializedName("original_title")
-    var originalTitle: String,
+    val originalTitle: String?,
 
     @SerializedName("original_name")
-    var originalname: String,
+    val originalname: String?,
 
     @SerializedName("overview")
-    var overview: String,
+    val overview: String?,
 
     @SerializedName("popularity")
-    var popularity: Double,
+    val popularity: Double,
 
     @SerializedName("poster_path")
-    var posterPath: String,
+    val posterPath: String?,
 
     @SerializedName("release_date")
-    var releaseDate: String,
+    val releaseDate: String?,
 
     @SerializedName("title")
-    var title: String,
+    val title: String?,
 
     @SerializedName("vote_average")
-    var voteAverage: Float,
+    val voteAverage: Float,
 
     @SerializedName("vote_count")
-    var voteCount: Int
-)
+    val voteCount: Int
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readByte() != 0.toByte(),
+        parcel.readString(),
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readDouble(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readFloat(),
+        parcel.readInt()
+    ) {
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeByte(if (adult) 1 else 0)
+        parcel.writeString(backdropPath)
+        parcel.writeInt(id)
+        parcel.writeString(originalLanguage)
+        parcel.writeString(originalTitle)
+        parcel.writeString(originalname)
+        parcel.writeString(overview)
+        parcel.writeDouble(popularity)
+        parcel.writeString(posterPath)
+        parcel.writeString(releaseDate)
+        parcel.writeString(title)
+        parcel.writeFloat(voteAverage)
+        parcel.writeInt(voteCount)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Movie> {
+        override fun createFromParcel(parcel: Parcel): Movie {
+            return Movie(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Movie?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

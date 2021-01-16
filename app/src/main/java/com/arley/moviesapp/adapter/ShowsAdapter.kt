@@ -44,7 +44,7 @@ class ShowsAdapter(private val tvShowsList : List<TvShow>, val context: Context,
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.ivPoster.clipToOutline = true
-        holder.tvTitle.text = tvShowsList.get(position).originalname
+        holder.tvTitle.text = tvShowsList.get(position).name
         holder.ivPoster.setOnClickListener{
             itemClickListener.onItemSerieClickListener(tvShowsList.get(position))
         }
