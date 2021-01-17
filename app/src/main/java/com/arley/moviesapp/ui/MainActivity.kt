@@ -188,7 +188,7 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
     }
 
     override fun onItemMovieClickListener(movie: Movie) {
-        Toast.makeText(this, movie.originalTitle, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, movie.title, Toast.LENGTH_SHORT).show()
     }
 
     override fun onItemSerieClickListener(tvShow: TvShow) {
