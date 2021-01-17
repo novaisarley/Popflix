@@ -2,6 +2,7 @@ package com.arley.moviesapp
 
 import com.arley.moviesapp.model.CreditsResult
 import com.arley.moviesapp.model.MoviesResult
+import com.arley.moviesapp.model.PeopleResult
 import com.arley.moviesapp.model.TvShowResult
 import retrofit2.Call
 import retrofit2.http.GET
@@ -19,6 +20,9 @@ interface TMDBServer {
 
     @GET("tv/popular?api_key=${Constants.API_KEY}")
     fun getPopularShows() : Call<TvShowResult>
+
+    @GET("trending/person/week?api_key=${Constants.API_KEY}")
+    fun getTrendingPeople() : Call<PeopleResult>
 
     //Returns the cast and the crew of a especific movie by movie_id
     @GET("movie/{movie_id}/credits?api_key=${Constants.API_KEY}")

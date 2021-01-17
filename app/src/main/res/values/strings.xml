@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MoviesApp</string>
+    <string name="trending_celebs">Trending Celebs</string>
+    <string name="popular_tv_shows">Popular TV Shows</string>
+    <string name="popular_movies">Popular Movies</string>
+    <string name="top_rated_movies">Top Rated Movies</string>
 </resources>
