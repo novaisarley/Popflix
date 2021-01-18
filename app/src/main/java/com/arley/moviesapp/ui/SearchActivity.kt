@@ -57,8 +57,10 @@ class SearchActivity : AppCompatActivity(), ItemClickListener {
 
         edtSearch.setOnEditorActionListener { v, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_DONE) {
-                getMovieSearchByTiltle(edtSearch.text.toString())
-                getShowsSearchByTiltle(edtSearch.text.toString())
+                if (!edtSearch.text.trim().isEmpty()){
+                    getMovieSearchByTiltle(edtSearch.text.toString())
+                    getShowsSearchByTiltle(edtSearch.text.toString())
+                }
             }
             false
         }

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MoviesApp</string>
+    <string name="app_name">Popflix</string>
     <string name="trending_celebs">Trending Celebs</string>
     <string name="popular_tv_shows">Popular TV Shows</string>
     <string name="popular_movies">Popular Movies</string>
