@@ -1,8 +1,11 @@
 package com.arley.moviesapp.adapter
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.drawable.AnimationDrawable
+import android.graphics.drawable.Drawable
 import android.graphics.drawable.TransitionDrawable
+import android.view.DragAndDropPermissions
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +17,11 @@ import com.arley.moviesapp.Constants
 import com.arley.moviesapp.R
 import com.arley.moviesapp.model.Movie
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
+import javax.security.auth.callback.Callback
 
 
 class MovieAdapter(private val moviesList : List<Movie>, val context: Context, val itemClickListener: ItemClickListener) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {

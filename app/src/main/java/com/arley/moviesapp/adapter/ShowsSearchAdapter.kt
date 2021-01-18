@@ -2,68 +2,62 @@ package com.arley.moviesapp.adapter
 
 import android.content.Context
 import android.graphics.drawable.AnimationDrawable
-import android.graphics.drawable.Drawable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.RecyclerView
 import com.arley.moviesapp.Constants
 import com.arley.moviesapp.R
-import com.arley.moviesapp.model.Person
+import com.arley.moviesapp.model.Movie
+import com.arley.moviesapp.model.TvShow
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
-import kotlinx.android.synthetic.main.item_person.*
+import kotlinx.android.synthetic.main.item_movie.*
 
 
-class PersonAdapter(private val personsList : List<Person>, val context: Context, private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
+class ShowsSearchAdapter(private val tvShowsList : List<TvShow>, val context: Context, private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<ShowsSearchAdapter.ViewHolder>() {
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder).
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvName: TextView
-        val ivProfile: ImageView
+        val ivPoster: ImageView
 
         init {
             // Define click listener for the ViewHolder's View.
-            tvName = view.findViewById(R.id.tv_name)
-            ivProfile = view.findViewById(R.id.iv_profile)
+            ivPoster = view.findViewById(R.id.search_item_iv_poster)
         }
     }
 
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_person, parent, false)
+            .inflate(R.layout.item_search_media, parent, false)
 
         return ViewHolder(view)
     }
 
     // Replace the contents of a view (invoked by the layout manager)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val animationDrawable = holder.ivProfile.background as AnimationDrawable
+        val animationDrawable = holder.ivPoster.background as AnimationDrawable
         animationDrawable.setEnterFadeDuration(2000)
         animationDrawable.setExitFadeDuration(3000)
         animationDrawable.start()
 
-        holder.ivProfile.clipToOutline = true
-        holder.tvName.text = personsList.get(position).name
-        holder.ivProfile.setOnClickListener{
-            itemClickListener.onItemPersonClickListener(personsList.get(position))
+        holder.ivPoster.clipToOutline = true
+        holder.ivPoster.setOnClickListener{
+            itemClickListener.onItemSerieClickListener(tvShowsList.get(position))
         }
         Glide.with(context)
-            .load(Constants.TMDB_LOW_IMAGE_BASE_URL+personsList.get(position).profilePath)
-            .into(holder.ivProfile)
+            .load(Constants.TMDB_HIGH_IMAGE_BASE_URL+tvShowsList.get(position).posterPath)
+            .into(holder.ivPoster)
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount(): Int {
-        return personsList.size
+        return tvShowsList.size
     }
 }
