@@ -174,11 +174,11 @@ class SearchActivity : AppCompatActivity(), ItemClickListener {
     }
 
     override fun onItemMovieClickListener(movie: Movie) {
-
+        Toast.makeText(this, movie.title, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onItemSerieClickListener(movie: TvShow) {
-
+    override fun onItemSerieClickListener(tvShow: TvShow) {
+        Toast.makeText(this, tvShow.originalname, Toast.LENGTH_SHORT).show()
     }
 
     override fun onItemPersonClickListener(person: Person) {
