@@ -7,14 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.contentValuesOf
 import androidx.recyclerview.widget.RecyclerView
 import com.arley.moviesapp.Constants
 import com.arley.moviesapp.R
-import com.arley.moviesapp.model.Movie
 import com.arley.moviesapp.model.TvShow
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_movie.*
+import kotlinx.android.synthetic.main.item_media.*
 
 
 class ShowsAdapter(private val tvShowsList : List<TvShow>, val context: Context, private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<ShowsAdapter.ViewHolder>() {
@@ -37,7 +35,7 @@ class ShowsAdapter(private val tvShowsList : List<TvShow>, val context: Context,
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.item_movie, parent, false)
+            .inflate(R.layout.item_media, parent, false)
 
         return ViewHolder(view)
     }

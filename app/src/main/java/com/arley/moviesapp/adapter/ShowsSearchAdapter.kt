@@ -14,7 +14,7 @@ import com.arley.moviesapp.R
 import com.arley.moviesapp.model.Movie
 import com.arley.moviesapp.model.TvShow
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_movie.*
+import kotlinx.android.synthetic.main.item_media.*
 
 
 class ShowsSearchAdapter(private val tvShowsList : List<TvShow>, val context: Context, private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<ShowsSearchAdapter.ViewHolder>() {

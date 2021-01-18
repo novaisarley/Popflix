@@ -146,7 +146,18 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
                     return
                 }
                 val showsResult : PeopleResult = response.body()!!
-                buildPersonRecyclerView(showsResult.results)
+
+                var list = showsResult.results
+
+                var formatedList: MutableList<Person> = ArrayList()
+
+                list.forEach {
+                    if (!it.profilePath.toString().equals("null")) {
+                        formatedList.add(it)
+                    }
+                }
+
+                buildPersonRecyclerView(formatedList)
 
             }
         })

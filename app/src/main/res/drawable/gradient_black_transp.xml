@@ -7,8 +7,8 @@
                 android:centerColor="#DD201E1E"
                 android:startColor="#EE100F0F" />
 
-            <corners android:bottomLeftRadius="15dp"
-                android:bottomRightRadius="15dp"/>
+            <corners android:bottomLeftRadius="12dp"
+                android:bottomRightRadius="12dp"/>
         </shape>
     </item>
 </selector>

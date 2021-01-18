@@ -62,42 +62,42 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_popular_movies"
                     android:layout_width="0dp"
-                    android:layout_height="315dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView"
                     tools:itemCount="1"
-                    tools:listitem="@layout/item_movie">
+                    tools:listitem="@layout/item_media">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_shows"
                     android:layout_width="0dp"
-                    android:layout_height="315dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView2"
                     tools:itemCount="1"
-                    tools:listitem="@layout/item_movie">
+                    tools:listitem="@layout/item_media">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_top_rated_movies"
                     android:layout_width="0dp"
-                    android:layout_height="315dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView4"
                     tools:itemCount="1"
-                    tools:listitem="@layout/item_movie">
+                    tools:listitem="@layout/item_media">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
