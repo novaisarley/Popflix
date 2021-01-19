@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.arley.moviesapp.Constants
 import com.arley.moviesapp.R
+import com.arley.moviesapp.listener.ItemClickListener
 import com.arley.moviesapp.model.Movie
 import com.bumptech.glide.Glide
 
@@ -50,16 +51,28 @@ class MovieAdapter(private val moviesList : List<Movie>, val context: Context, v
 
         holder.ivPoster.clipToOutline = true
         holder.tvTitle.text = moviesList.get(position).title
-        holder.ivPoster.setOnClickListener{
-            itemClickListener.onItemMovieClickListener(moviesList.get(position))
+
+        if (!isMovieEmpty(moviesList.get(position))){
+            holder.ivPoster.setOnClickListener{
+                itemClickListener.onItemMovieClickListener(moviesList.get(position))
+            }
+            Glide.with(context)
+                .load(Constants.TMDB_HIGH_IMAGE_BASE_URL+moviesList.get(position).posterPath)
+                .into(holder.ivPoster)
         }
-        Glide.with(context)
-            .load(Constants.TMDB_HIGH_IMAGE_BASE_URL+moviesList.get(position).posterPath)
-            .into(holder.ivPoster)
+
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount(): Int {
         return moviesList.size
+    }
+
+    fun isMovieEmpty(movie: Movie):  Boolean{
+        if (movie.equals(Movie.createEmptyMovie())){
+            return true
+        }
+        return false
     }
 }

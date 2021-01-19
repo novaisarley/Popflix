@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.arley.moviesapp.Constants
 import com.arley.moviesapp.R
+import com.arley.moviesapp.listener.ItemClickListener
 import com.arley.moviesapp.model.Movie
 import com.bumptech.glide.Glide
 
@@ -47,16 +47,26 @@ class MovieSearchAdapter(private val moviesList : List<Movie>, val context: Cont
         animationDrawable.start()
 
         holder.ivPoster.clipToOutline = true
-        holder.ivPoster.setOnClickListener{
-            itemClickListener.onItemMovieClickListener(moviesList.get(position))
+        if (!isMovieEmpty(moviesList.get(position))){
+            holder.ivPoster.setOnClickListener{
+                itemClickListener.onItemMovieClickListener(moviesList.get(position))
+            }
+            Glide.with(context)
+                .load(Constants.TMDB_LOW_IMAGE_BASE_URL+moviesList.get(position).posterPath)
+                .into(holder.ivPoster)
         }
-        Glide.with(context)
-            .load(Constants.TMDB_LOW_IMAGE_BASE_URL+moviesList.get(position).posterPath)
-            .into(holder.ivPoster)
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount(): Int {
         return moviesList.size
+    }
+
+    fun isMovieEmpty(movie: Movie):  Boolean{
+        if (movie.equals(Movie.createEmptyMovie())){
+            return true
+        }
+        return false
     }
 }

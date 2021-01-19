@@ -1,4 +1,4 @@
-package com.arley.moviesapp.adapter
+package com.arley.moviesapp.listener
 
 import com.arley.moviesapp.model.Movie
 import com.arley.moviesapp.model.Person

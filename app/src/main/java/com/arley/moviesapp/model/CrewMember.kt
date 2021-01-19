@@ -30,4 +30,11 @@ data class CrewMember(
             return crewMember
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        val obj : CrewMember = other as CrewMember
+
+        return this.originalName.equals(obj.originalName)
+    }
+
 }

@@ -13,8 +13,7 @@ import com.arley.moviesapp.R
 import com.arley.moviesapp.TMDBServer
 import com.arley.moviesapp.adapter.CastAdapter
 import com.arley.moviesapp.adapter.CrewAdapter
-import com.arley.moviesapp.adapter.ItemClickListener
-import com.arley.moviesapp.adapter.MovieAdapter
+import com.arley.moviesapp.listener.ItemClickListener
 import com.arley.moviesapp.model.*
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_movie_specification.*
@@ -23,21 +22,22 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MovieSpecificationActivity : AppCompatActivity(), ItemClickListener{
+class MovieSpecificationActivity : AppCompatActivity(),
+    ItemClickListener {
 
-    lateinit var tvTitle : TextView
-    lateinit var tvRating : TextView
-    lateinit var tvOverview : TextView
-    lateinit var tvReleaseDate : TextView
+    lateinit var tvTitle: TextView
+    lateinit var tvRating: TextView
+    lateinit var tvOverview: TextView
+    lateinit var tvReleaseDate: TextView
 
-    lateinit var ibBack : ImageButton
+    lateinit var ibBack: ImageButton
 
-    lateinit var ivBackdrop : ImageView
+    lateinit var ivBackdrop: ImageView
 
-    lateinit var ratingBar : RatingBar
+    lateinit var ratingBar: RatingBar
 
-    lateinit var rvCast : RecyclerView
-    lateinit var rvCrew : RecyclerView
+    lateinit var rvCast: RecyclerView
+    lateinit var rvCrew: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,19 +59,27 @@ class MovieSpecificationActivity : AppCompatActivity(), ItemClickListener{
         rvCast = rv_cast
         rvCrew = rv_crew
 
-        ibBack.setOnClickListener(object : View.OnClickListener{
+        ibBack.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {
                 onBackPressed()
             }
         })
 
-        movie?.let{
-            setMovieContent(it)
+        if (Connection.isConnectedToNetwork(applicationContext)) {
+            movie?.let {
+                setMovieContent(it)
+            }
+
+            show?.let {
+                setShowContent(it)
+            }
+        } else {
+            Toast.makeText(applicationContext, "Connect to Wifi or mobile data", Toast.LENGTH_SHORT)
+                .show()
         }
 
-        show?.let{
-            setShowContent(it)
-        }
+
+
 
         setInitialLists()
 
@@ -79,55 +87,75 @@ class MovieSpecificationActivity : AppCompatActivity(), ItemClickListener{
 
     }
 
-    fun setMovieContent(movie: Movie){
+    fun setMovieContent(movie: Movie) {
         val day: String
         val month: String
         val year: String
 
-        val formatedDate : String
+        val formatedDate: String
 
-        val dateArray : List<String>? = movie.releaseDate?.split("-")?.toList()
-        day = dateArray!!.get(2)
-        month = dateArray.get(1)
-        year = dateArray.get(0)
+        if (!movie.releaseDate?.trim()?.isEmpty()!!) {
+            val dateArray: List<String>? = movie.releaseDate?.split("-")?.toList()
+            day = dateArray!!.get(2)
+            month = dateArray.get(1)
+            year = dateArray.get(0)
 
-        formatedDate = "${day}/${month}/${year}"
+            formatedDate = "${day}/${month}/${year}"
+            tvReleaseDate.text = formatedDate
+        }
+
+        movie.backdropPath.let {
+            Glide.with(applicationContext).load(Constants.TMDB_HIGH_IMAGE_BASE_URL + it)
+                .into(ivBackdrop)
+        }
+        movie.backdropPath ?: run {
+            Glide.with(applicationContext)
+                .load(Constants.TMDB_HIGH_IMAGE_BASE_URL + movie.posterPath).into(ivBackdrop)
+        }
 
         tvTitle.text = movie.title
         tvRating.text = movie.voteAverage.toString()
         tvOverview.text = movie.overview
-        tvReleaseDate.text = formatedDate
-        ratingBar.rating = movie.voteAverage/2.0f
-        Glide.with(applicationContext).load(Constants.TMDB_HIGH_IMAGE_BASE_URL + movie.backdropPath).into(ivBackdrop)
+        ratingBar.rating = movie.voteAverage / 2.0f
 
         getCreditsByMovie(movie.id)
     }
 
-    fun setShowContent(show: TvShow){
+    fun setShowContent(show: TvShow) {
         val day: String
         val month: String
         val year: String
 
-        val formatedDate : String
+        val formatedDate: String
 
-        val dateArray : List<String>? = show.firstAirDate?.split("-")?.toList()
-        day = dateArray!!.get(2)
-        month = dateArray.get(1)
-        year = dateArray.get(0)
+        if (!show.firstAirDate?.trim()?.isEmpty()!!) {
+            val dateArray: List<String>? = show.firstAirDate?.split("-")?.toList()
+            day = dateArray!!.get(2)
+            month = dateArray.get(1)
+            year = dateArray.get(0)
 
-        formatedDate = "${day}/${month}/${year}"
+            formatedDate = "${day}/${month}/${year}"
+            tvReleaseDate.text = formatedDate
+        }
+
+        show.backdropPath.let {
+            Glide.with(applicationContext).load(Constants.TMDB_HIGH_IMAGE_BASE_URL + it)
+                .into(ivBackdrop)
+        }
+        show.backdropPath ?: run {
+            Glide.with(applicationContext)
+                .load(Constants.TMDB_HIGH_IMAGE_BASE_URL + show.posterPath).into(ivBackdrop)
+        }
 
         tvTitle.text = show.name
         tvRating.text = show.voteAverage.toString()
         tvOverview.text = show.overview
-        tvReleaseDate.text = formatedDate
-        ratingBar.rating = show.voteAverage/2.0f
-        Glide.with(applicationContext).load(Constants.TMDB_HIGH_IMAGE_BASE_URL + show.backdropPath).into(ivBackdrop)
+        ratingBar.rating = show.voteAverage / 2.0f
 
         getCreditsByShow(show.id)
     }
 
-    fun getCreditsByMovie(id: Int){
+    fun getCreditsByMovie(id: Int) {
         val retrofitClient = NetworkUtils
             .getRetrofitInstance(Constants.TMDB_BASE_URL)
 
@@ -140,13 +168,17 @@ class MovieSpecificationActivity : AppCompatActivity(), ItemClickListener{
             }
 
             override fun onResponse(call: Call<CreditsResult>, response: Response<CreditsResult>) {
-                if(!response.isSuccessful()){
-                    Toast.makeText(baseContext, "Error code: "+response.code().toString(), Toast.LENGTH_SHORT).show()
+                if (!response.isSuccessful()) {
+                    Toast.makeText(
+                        baseContext,
+                        "Error code: " + response.code().toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return
                 }
-                val result : CreditsResult = response.body()!!
-                val listCrew : List<CrewMember> = result.crew
-                val listCast : List<CastMember> = result.cast
+                val result: CreditsResult = response.body()!!
+                val listCrew: List<CrewMember> = result.crew
+                val listCast: List<CastMember> = result.cast
 
                 buildCrewRecyclerView(listCrew)
                 buildCastRecyclerView(listCast)
@@ -154,7 +186,7 @@ class MovieSpecificationActivity : AppCompatActivity(), ItemClickListener{
         })
     }
 
-    fun getCreditsByShow(id: Int){
+    fun getCreditsByShow(id: Int) {
         val retrofitClient = NetworkUtils
             .getRetrofitInstance(Constants.TMDB_BASE_URL)
 
@@ -167,13 +199,17 @@ class MovieSpecificationActivity : AppCompatActivity(), ItemClickListener{
             }
 
             override fun onResponse(call: Call<CreditsResult>, response: Response<CreditsResult>) {
-                if(!response.isSuccessful()){
-                    Toast.makeText(baseContext, "Error code: "+response.code().toString(), Toast.LENGTH_SHORT).show()
+                if (!response.isSuccessful()) {
+                    Toast.makeText(
+                        baseContext,
+                        "Error code: " + response.code().toString(),
+                        Toast.LENGTH_SHORT
+                    ).show()
                     return
                 }
-                val result : CreditsResult = response.body()!!
-                val listCrew : List<CrewMember> = result.crew
-                val listCast : List<CastMember> = result.cast
+                val result: CreditsResult = response.body()!!
+                val listCrew: List<CrewMember> = result.crew
+                val listCast: List<CastMember> = result.cast
 
                 buildCrewRecyclerView(listCrew)
                 buildCastRecyclerView(listCast)
@@ -181,39 +217,36 @@ class MovieSpecificationActivity : AppCompatActivity(), ItemClickListener{
         })
     }
 
-    fun buildCastRecyclerView(castList: List<CastMember>){
-        rvCast.adapter = CastAdapter( castList,this, this)
+    fun buildCastRecyclerView(castList: List<CastMember>) {
+        rvCast.adapter = CastAdapter(castList, this, this)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvCast.layoutManager = layoutManager
     }
 
-    fun buildCrewRecyclerView(crewList: List<CrewMember>){
-        rvCrew.adapter = CrewAdapter( crewList,this, this)
+    fun buildCrewRecyclerView(crewList: List<CrewMember>) {
+        rvCrew.adapter = CrewAdapter(crewList, this, this)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvCrew.layoutManager = layoutManager
     }
 
     private fun setInitialLists() {
-        var initialCrewList : MutableList<CrewMember> = ArrayList()
-        var initialCastList : MutableList<CastMember> = ArrayList()
+        var initialCrewList: MutableList<CrewMember> = ArrayList()
+        var initialCastList: MutableList<CastMember> = ArrayList()
 
-        for(i in 0..4) initialCrewList.add(CrewMember.createEmptyCrewMember())
-        for(i in 0..4) initialCastList.add(CastMember.createEmptyCastMember())
+        for (i in 0..4) initialCrewList.add(CrewMember.createEmptyCrewMember())
+        for (i in 0..4) initialCastList.add(CastMember.createEmptyCastMember())
 
         buildCrewRecyclerView(initialCrewList)
         buildCastRecyclerView(initialCastList)
     }
 
     override fun onItemMovieClickListener(movie: Movie) {
-        TODO("Not yet implemented")
     }
 
     override fun onItemSerieClickListener(movie: TvShow) {
-        TODO("Not yet implemented")
     }
 
     override fun onItemPersonClickListener(person: Person) {
-        TODO("Not yet implemented")
     }
 
 

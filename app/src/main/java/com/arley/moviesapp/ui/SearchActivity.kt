@@ -2,13 +2,11 @@ package com.arley.moviesapp.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
-import android.widget.TextView
-import android.widget.TextView.OnEditorActionListener
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -17,9 +15,10 @@ import com.arley.moviesapp.Constants
 import com.arley.moviesapp.NetworkUtils
 import com.arley.moviesapp.R
 import com.arley.moviesapp.TMDBServer
-import com.arley.moviesapp.adapter.ItemClickListener
+import com.arley.moviesapp.listener.ItemClickListener
 import com.arley.moviesapp.adapter.MovieSearchAdapter
 import com.arley.moviesapp.adapter.ShowsSearchAdapter
+import com.arley.moviesapp.listener.ConnectionListener
 import com.arley.moviesapp.model.*
 import kotlinx.android.synthetic.main.activity_search.*
 import retrofit2.Call
@@ -27,14 +26,18 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class SearchActivity : AppCompatActivity(), ItemClickListener {
+class SearchActivity : AppCompatActivity(),
+    ItemClickListener, ConnectionListener{
 
     lateinit var moviesRecyclerView: RecyclerView
     lateinit var showsRecyclerView: RecyclerView
+    var lastSearch: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+        Connection.startVerification(applicationContext, this)
 
         moviesRecyclerView = activity_search_rv_movies
         showsRecyclerView = activity_search_rv_shows
@@ -42,25 +45,15 @@ class SearchActivity : AppCompatActivity(), ItemClickListener {
         setInitialLists()
 
         val edtSearch: EditText = activity_search_edt_title
-        edtSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-        })
 
         edtSearch.setOnEditorActionListener { v, actionId, event ->
             if(actionId == EditorInfo.IME_ACTION_DONE) {
                 if (!edtSearch.text.trim().isEmpty()){
-                    getMovieSearchByTiltle(edtSearch.text.toString())
-                    getShowsSearchByTiltle(edtSearch.text.toString())
+                    if (Connection.isConnectedToNetwork(applicationContext)){
+                        searchByTitle(edtSearch.text.toString())
+                    }else{
+                        Toast.makeText(applicationContext, "Connect to Wifi or mobile data", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
             false
@@ -68,6 +61,11 @@ class SearchActivity : AppCompatActivity(), ItemClickListener {
 
         edtSearch.requestFocus()
 
+    }
+
+    fun searchByTitle(query: String){
+        getMovieSearchByTiltle(query)
+        getShowsSearchByTiltle(query)
     }
 
     fun getMovieSearchByTiltle(query: String) {
@@ -177,19 +175,34 @@ class SearchActivity : AppCompatActivity(), ItemClickListener {
     }
 
     override fun onItemMovieClickListener(movie: Movie) {
-        val intent : Intent = Intent(applicationContext, MovieSpecificationActivity::class.java)
-        intent.putExtra("movie", movie)
+        if (Connection.isConnectedToNetwork(applicationContext)){
+            val intent : Intent = Intent(applicationContext, MovieSpecificationActivity::class.java)
+            intent.putExtra("movie", movie)
 
-        startActivity(intent)
+            startActivity(intent)
+        }else{
+            Toast.makeText(applicationContext, "Connect to Wifi or mobile data", Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onItemSerieClickListener(tvShow: TvShow) {
-        val intent : Intent = Intent(applicationContext, MovieSpecificationActivity::class.java)
-        intent.putExtra("show", tvShow)
+        if (Connection.isConnectedToNetwork(applicationContext)){
+            val intent : Intent = Intent(applicationContext, MovieSpecificationActivity::class.java)
+            intent.putExtra("show", tvShow)
 
-        startActivity(intent)
+            startActivity(intent)
+        }else{
+            Toast.makeText(applicationContext, "Connect to Wifi or mobile data", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
     override fun onItemPersonClickListener(person: Person) {
+    }
+
+    override fun onConnectionLost() {
+    }
+
+    override fun onConnectionAvailable() {
     }
 }

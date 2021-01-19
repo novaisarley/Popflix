@@ -30,4 +30,14 @@ data class CastMember(
             return crewMember
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        val obj : CastMember = other as CastMember
+
+        return this.originalName.equals(obj.originalName)
+    }
+
+    override fun hashCode(): Int {
+        return this.originalName.toInt()
+    }
 }

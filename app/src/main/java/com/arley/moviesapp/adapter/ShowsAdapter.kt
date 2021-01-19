@@ -10,9 +10,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.arley.moviesapp.Constants
 import com.arley.moviesapp.R
+import com.arley.moviesapp.listener.ItemClickListener
+import com.arley.moviesapp.model.Movie
 import com.arley.moviesapp.model.TvShow
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.item_media.*
 
 
 class ShowsAdapter(private val tvShowsList : List<TvShow>, val context: Context, private val itemClickListener: ItemClickListener) : RecyclerView.Adapter<ShowsAdapter.ViewHolder>() {
@@ -49,16 +50,28 @@ class ShowsAdapter(private val tvShowsList : List<TvShow>, val context: Context,
 
         holder.ivPoster.clipToOutline = true
         holder.tvTitle.text = tvShowsList.get(position).name
-        holder.ivPoster.setOnClickListener{
-            itemClickListener.onItemSerieClickListener(tvShowsList.get(position))
+
+        if (!isShowEmpty(tvShowsList.get(position))){
+            holder.ivPoster.setOnClickListener{
+                itemClickListener.onItemSerieClickListener(tvShowsList.get(position))
+            }
+            Glide.with(context)
+                .load(Constants.TMDB_HIGH_IMAGE_BASE_URL+tvShowsList.get(position).posterPath)
+                .into(holder.ivPoster)
         }
-        Glide.with(context)
-            .load(Constants.TMDB_HIGH_IMAGE_BASE_URL+tvShowsList.get(position).posterPath)
-            .into(holder.ivPoster)
+
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount(): Int {
         return tvShowsList.size
+    }
+
+    fun isShowEmpty(show: TvShow):  Boolean{
+        if (show.equals(TvShow.createEmptyTvShow())){
+            return true
+        }
+        return false
     }
 }
