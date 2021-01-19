@@ -43,7 +43,6 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
             override fun onClick(v: View?) {
                 startActivity(Intent(applicationContext, SearchActivity::class.java))
             }
-
         })
 
         getPopularMovies()
@@ -71,7 +70,11 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
                     return
                 }
                 val moviesResult : MoviesResult = response.body()!!
-                buildPopularMoviesRecyclerView(moviesResult.results)
+
+                var list : MutableList<Movie> = moviesResult.results
+                list.shuffle()
+
+                buildPopularMoviesRecyclerView(list)
 
             }
         })
@@ -96,8 +99,11 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
                     return
                 }
                 val moviesResult : MoviesResult = response.body()!!
-                buildTopRatedMoviesRecyclerView(moviesResult.results)
 
+                var list : MutableList<Movie> = moviesResult.results
+                list.shuffle()
+
+                buildTopRatedMoviesRecyclerView(list)
             }
         })
 
@@ -121,7 +127,11 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
                     return
                 }
                 val showsResult : TvShowResult = response.body()!!
-                buildShowsRecyclerView(showsResult.results)
+
+                var list : MutableList<TvShow> = showsResult.results
+                list.shuffle()
+
+                buildShowsRecyclerView(list)
 
             }
         })
@@ -156,6 +166,8 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
                         formatedList.add(it)
                     }
                 }
+
+                formatedList.shuffle()
 
                 buildPersonRecyclerView(formatedList)
 
@@ -204,11 +216,17 @@ class MainActivity : AppCompatActivity(), ItemClickListener {
     }
 
     override fun onItemMovieClickListener(movie: Movie) {
-        Toast.makeText(this, movie.title, Toast.LENGTH_SHORT).show()
+        val intent : Intent = Intent(applicationContext, MovieSpecificationActivity::class.java)
+        intent.putExtra("movie", movie)
+
+        startActivity(intent)
     }
 
     override fun onItemSerieClickListener(tvShow: TvShow) {
-        Toast.makeText(this, tvShow.originalname, Toast.LENGTH_SHORT).show()
+        val intent : Intent = Intent(applicationContext, MovieSpecificationActivity::class.java)
+        intent.putExtra("show", tvShow)
+
+        startActivity(intent)
     }
 
     override fun onItemPersonClickListener(person: Person) {

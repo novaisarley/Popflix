@@ -8,4 +8,8 @@
     <string name="movies_and_tvshows">Movies and Tv Shows</string>
     <string name="tv_shows">Tv Shows</string>
     <string name="search_for_movies_and_tv_shows">Search for Movies and Tv Shows</string>
+    <string name="synopsis">Synopsis</string>
+    <string name="cast">Cast</string>
+    <string name="release_date">Release date</string>
+    <string name="crew">Crew</string>
 </resources>

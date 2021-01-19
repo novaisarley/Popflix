@@ -31,7 +31,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradient_black_transp"
+        android:background="@drawable/gradient_black_transp_rounded"
         android:padding="20dp"
         app:layout_constraintBottom_toBottomOf="@+id/iv_poster"
         app:layout_constraintEnd_toEndOf="@+id/iv_poster"

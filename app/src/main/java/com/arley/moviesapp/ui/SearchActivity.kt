@@ -168,8 +168,8 @@ class SearchActivity : AppCompatActivity(), ItemClickListener {
         var initialMoviesList: MutableList<Movie> = ArrayList()
         var initialTvShowsList: MutableList<TvShow> = ArrayList()
 
-        for (i in 0..10) initialMoviesList.add(Movie.createEmptyMovie())
-        for (i in 0..10) initialTvShowsList.add(TvShow.createEmptyTvShow())
+        for (i in 0..12) initialMoviesList.add(Movie.createEmptyMovie())
+        for (i in 0..12) initialTvShowsList.add(TvShow.createEmptyTvShow())
 
         buildMoviesRecyclerView(initialMoviesList)
         buildTvShowsRecyclerView(initialTvShowsList)

@@ -21,4 +21,13 @@ data class CastMember(
     @SerializedName("character")
     var character: String
 
-)
+){
+    companion object{
+        fun createEmptyCastMember(): CastMember{
+            val crewMember : CastMember = CastMember(0, "", "", 0.0,
+                "", "")
+
+            return crewMember
+        }
+    }
+}

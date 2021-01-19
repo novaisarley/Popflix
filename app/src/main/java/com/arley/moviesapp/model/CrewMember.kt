@@ -21,4 +21,13 @@ data class CrewMember(
     @SerializedName("job")
     var job: String
 
-)
+){
+    companion object{
+        fun createEmptyCrewMember(): CrewMember{
+            val crewMember : CrewMember = CrewMember(0, "", "", 0.0,
+            "", "")
+
+            return crewMember
+        }
+    }
+}
