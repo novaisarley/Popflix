@@ -1,5 +1,6 @@
 package com.arley.moviesapp.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -176,11 +177,17 @@ class SearchActivity : AppCompatActivity(), ItemClickListener {
     }
 
     override fun onItemMovieClickListener(movie: Movie) {
-        Toast.makeText(this, movie.title, Toast.LENGTH_SHORT).show()
+        val intent : Intent = Intent(applicationContext, MovieSpecificationActivity::class.java)
+        intent.putExtra("movie", movie)
+
+        startActivity(intent)
     }
 
     override fun onItemSerieClickListener(tvShow: TvShow) {
-        Toast.makeText(this, tvShow.originalname, Toast.LENGTH_SHORT).show()
+        val intent : Intent = Intent(applicationContext, MovieSpecificationActivity::class.java)
+        intent.putExtra("show", tvShow)
+
+        startActivity(intent)
     }
 
     override fun onItemPersonClickListener(person: Person) {
