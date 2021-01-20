@@ -1,24 +1,30 @@
 package com.arley.moviesapp.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
 import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arley.moviesapp.Constants
-import com.arley.moviesapp.NetworkUtils
 import com.arley.moviesapp.R
 import com.arley.moviesapp.TMDBServer
-import com.arley.moviesapp.listener.ItemClickListener
 import com.arley.moviesapp.adapter.MovieAdapter
 import com.arley.moviesapp.adapter.PersonAdapter
 import com.arley.moviesapp.adapter.ShowsAdapter
 import com.arley.moviesapp.listener.ConnectionListener
+import com.arley.moviesapp.listener.ItemClickListener
 import com.arley.moviesapp.model.*
+import com.arley.moviesapp.utils.Connection
+import com.arley.moviesapp.utils.NetworkUtils
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +36,8 @@ class MainActivity : AppCompatActivity(),
     lateinit var topRatedMoviesRecyclerView: RecyclerView
     lateinit var showsRecyclerView: RecyclerView
     lateinit var personRecyclerView: RecyclerView
+    lateinit var layoutStatusConnection: LinearLayout
+    lateinit var tvStatusConnection: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +49,8 @@ class MainActivity : AppCompatActivity(),
         topRatedMoviesRecyclerView = rv_top_rated_movies
         showsRecyclerView = rv_shows
         personRecyclerView = rv_person
+        tvStatusConnection = tv_connection_status
+        layoutStatusConnection = layout_connection_status
 
         setInitialLists()
 
@@ -55,10 +65,7 @@ class MainActivity : AppCompatActivity(),
         } else {
             Toast.makeText(applicationContext, "Connect to Wifi or mobile data", Toast.LENGTH_LONG).show()
             startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
-
         }
-
-
     }
 
     private fun populateRecyclerViews() {
@@ -276,15 +283,20 @@ class MainActivity : AppCompatActivity(),
 
     }
 
+    fun showConnectionStatus(){
+        layoutStatusConnection.visibility = View.GONE
+    }
+
     override fun onItemPersonClickListener(person: Person) {
         Toast.makeText(this, person.name, Toast.LENGTH_SHORT).show()
     }
 
     override fun onConnectionLost() {
-        Toast.makeText(this, "Lost Connection", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, R.string.disconnected, Toast.LENGTH_SHORT).show()
     }
 
     override fun onConnectionAvailable() {
         populateRecyclerViews()
+
     }
 }

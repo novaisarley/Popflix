@@ -12,6 +12,7 @@
         android:layout_width="195dp"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
+        android:foreground="?selectableItemBackground"
         android:background="@drawable/gradient_list"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="66:99"

@@ -1,4 +1,4 @@
-package com.arley.moviesapp
+package com.arley.moviesapp.utils
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

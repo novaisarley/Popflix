@@ -12,4 +12,6 @@
     <string name="cast">Cast</string>
     <string name="release_date">Release date</string>
     <string name="crew">Crew</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Lost connection</string>
 </resources>

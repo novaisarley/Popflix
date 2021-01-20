@@ -9,7 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="colorAccent">#f5c618</color>
-    <color name="colorPrimary">#333333</color>
+    <color name="colorPrimary">#2D3DA8</color>
+    <color name="colorConnected">#2D3DA8</color>
+    <color name="colorDisconnected">#4C4949</color>
     <color name="lightGray">#aaaaaa</color>
     <color name="colorPrimaryDark">#0d253f</color>
 </resources>

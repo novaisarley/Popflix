@@ -2,9 +2,6 @@ package com.arley.moviesapp.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
@@ -12,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.arley.moviesapp.Constants
-import com.arley.moviesapp.NetworkUtils
+import com.arley.moviesapp.utils.NetworkUtils
 import com.arley.moviesapp.R
 import com.arley.moviesapp.TMDBServer
 import com.arley.moviesapp.listener.ItemClickListener
@@ -20,6 +17,7 @@ import com.arley.moviesapp.adapter.MovieSearchAdapter
 import com.arley.moviesapp.adapter.ShowsSearchAdapter
 import com.arley.moviesapp.listener.ConnectionListener
 import com.arley.moviesapp.model.*
+import com.arley.moviesapp.utils.Connection
 import kotlinx.android.synthetic.main.activity_search.*
 import retrofit2.Call
 import retrofit2.Callback

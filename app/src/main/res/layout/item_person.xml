@@ -13,6 +13,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
+        android:foreground="?selectableItemBackground"
         android:background="@drawable/gradient_list_circle"/>
 
     <TextView

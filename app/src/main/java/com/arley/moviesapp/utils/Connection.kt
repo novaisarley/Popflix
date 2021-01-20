@@ -1,10 +1,9 @@
-package com.arley.moviesapp.model
+package com.arley.moviesapp.utils
 
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkInfo
-import android.widget.Toast
 import com.arley.moviesapp.listener.ConnectionListener
 
 class Connection{

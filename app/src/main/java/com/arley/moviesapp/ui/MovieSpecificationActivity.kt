@@ -8,13 +8,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.arley.moviesapp.Constants
-import com.arley.moviesapp.NetworkUtils
+import com.arley.moviesapp.utils.NetworkUtils
 import com.arley.moviesapp.R
 import com.arley.moviesapp.TMDBServer
 import com.arley.moviesapp.adapter.CastAdapter
 import com.arley.moviesapp.adapter.CrewAdapter
 import com.arley.moviesapp.listener.ItemClickListener
 import com.arley.moviesapp.model.*
+import com.arley.moviesapp.utils.Connection
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_movie_specification.*
 import retrofit2.Call
