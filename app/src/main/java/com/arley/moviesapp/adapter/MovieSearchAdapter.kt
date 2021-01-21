@@ -47,6 +47,7 @@ class MovieSearchAdapter(private val moviesList : List<Movie>, val context: Cont
         animationDrawable.start()
 
         holder.ivPoster.clipToOutline = true
+        holder.ivPoster.contentDescription = moviesList.get(position).title
         if (!isMovieEmpty(moviesList.get(position))){
             holder.ivPoster.setOnClickListener{
                 itemClickListener.onItemMovieClickListener(moviesList.get(position))

@@ -50,6 +50,7 @@ class CrewAdapter(private val crewList : List<CrewMember>, val context: Context,
         animationDrawable.start()
 
         holder.ivProfile.clipToOutline = true
+        holder.ivProfile.contentDescription = crewList.get(position).originalName
         holder.tvName.text = crewList.get(position).originalName
         holder.tvAs.text = crewList.get(position).job
 

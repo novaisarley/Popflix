@@ -50,6 +50,7 @@ class MovieAdapter(private val moviesList : List<Movie>, val context: Context, v
         animationDrawable.start()
 
         holder.ivPoster.clipToOutline = true
+        holder.ivPoster.contentDescription = moviesList.get(position).title
         holder.tvTitle.text = moviesList.get(position).title
 
         if (!isMovieEmpty(moviesList.get(position))){

@@ -38,7 +38,7 @@
         android:fontFamily="@font/proxima_nova_light"
         android:lines="2"
         android:textAlignment="center"
-        android:textColor="#B90D253F"
+        android:textColor="@color/ligthBlue"
         android:textSize="14sp"
         tools:text="Wonder Woman | Diane Princess" />
 

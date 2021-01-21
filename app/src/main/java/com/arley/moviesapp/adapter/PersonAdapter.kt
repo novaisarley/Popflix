@@ -50,6 +50,7 @@ class PersonAdapter(private val personsList : List<Person>, val context: Context
         animationDrawable.start()
 
         holder.ivProfile.clipToOutline = true
+        holder.ivProfile.contentDescription = personsList.get(position).name
         holder.tvName.text = personsList.get(position).name
         holder.tvAs.visibility = View.GONE
         holder.ivProfile.setOnClickListener{

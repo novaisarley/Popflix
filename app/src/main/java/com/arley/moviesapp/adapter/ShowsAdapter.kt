@@ -50,7 +50,7 @@ class ShowsAdapter(private val tvShowsList : List<TvShow>, val context: Context,
 
         holder.ivPoster.clipToOutline = true
         holder.tvTitle.text = tvShowsList.get(position).name
-
+        holder.ivPoster.contentDescription = tvShowsList.get(position).name
         if (!isShowEmpty(tvShowsList.get(position))){
             holder.ivPoster.setOnClickListener{
                 itemClickListener.onItemSerieClickListener(tvShowsList.get(position))

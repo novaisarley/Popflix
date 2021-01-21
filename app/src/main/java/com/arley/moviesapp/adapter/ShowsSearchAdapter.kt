@@ -45,6 +45,7 @@ class ShowsSearchAdapter(private val tvShowsList : List<TvShow>, val context: Co
         animationDrawable.start()
 
         holder.ivPoster.clipToOutline = true
+        holder.ivPoster.contentDescription = tvShowsList.get(position).name
         if (!isShowEmpty(tvShowsList.get(position))){
             holder.ivPoster.setOnClickListener{
                 itemClickListener.onItemSerieClickListener(tvShowsList.get(position))

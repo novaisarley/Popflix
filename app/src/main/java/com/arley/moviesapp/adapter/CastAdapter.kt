@@ -49,6 +49,7 @@ class CastAdapter(private val castList : List<CastMember>, val context: Context,
         animationDrawable.start()
 
         holder.ivProfile.clipToOutline = true
+        holder.ivProfile.contentDescription = castList.get(position).originalName
         holder.tvName.text = castList.get(position).originalName
         holder.tvAs.text = castList.get(position).character
 
