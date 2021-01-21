@@ -2,6 +2,7 @@ package com.arley.moviesapp.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
@@ -150,14 +151,18 @@ class SearchActivity : AppCompatActivity(),
     }
 
     fun buildMoviesRecyclerView(moviesList: List<Movie>) {
+        var spamCount = 3
+        if (isTablet()) spamCount = 4 else spamCount = 3
         moviesRecyclerView.adapter = MovieSearchAdapter(moviesList, this, this)
-        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        val layoutManager = StaggeredGridLayoutManager(spamCount, StaggeredGridLayoutManager.VERTICAL)
         moviesRecyclerView.layoutManager = layoutManager
     }
 
     fun buildTvShowsRecyclerView(showsList: List<TvShow>) {
+        var spamCount = 3
+        if (isTablet()) spamCount = 4 else spamCount = 3
         showsRecyclerView.adapter = ShowsSearchAdapter(showsList, this, this)
-        val layoutManager = StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
+        val layoutManager = StaggeredGridLayoutManager(spamCount, StaggeredGridLayoutManager.VERTICAL)
         showsRecyclerView.layoutManager = layoutManager
     }
 
@@ -170,6 +175,21 @@ class SearchActivity : AppCompatActivity(),
 
         buildMoviesRecyclerView(initialMoviesList)
         buildTvShowsRecyclerView(initialTvShowsList)
+    }
+
+    fun isTablet() : Boolean{
+        try {
+
+            val dm: DisplayMetrics = applicationContext.getResources().getDisplayMetrics();
+            val screenWidth : Float = dm.widthPixels / dm.xdpi;
+            val screenHeight : Float = dm.heightPixels / dm.ydpi;
+            val size : Double = Math.sqrt(Math.pow(screenWidth.toDouble(), 2.0) +
+                    Math.pow(screenHeight.toDouble(), 2.0));
+            // Tablet devices have a screen size greater than 6 inches
+            return size >= 8;
+        } catch(t: Throwable ) {
+            return false;
+        }
     }
 
     override fun onItemMovieClickListener(movie: Movie) {

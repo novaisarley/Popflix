@@ -3,6 +3,7 @@ package com.arley.moviesapp.ui
 import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
+import android.util.DisplayMetrics
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -283,9 +284,6 @@ class MainActivity : AppCompatActivity(),
 
     }
 
-    fun showConnectionStatus(){
-        layoutStatusConnection.visibility = View.GONE
-    }
 
     override fun onItemPersonClickListener(person: Person) {
         Toast.makeText(this, person.name, Toast.LENGTH_SHORT).show()
