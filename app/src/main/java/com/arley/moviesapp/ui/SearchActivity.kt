@@ -23,6 +23,8 @@ import kotlinx.android.synthetic.main.activity_search.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class SearchActivity : AppCompatActivity(),
@@ -51,7 +53,7 @@ class SearchActivity : AppCompatActivity(),
                     if (Connection.isConnectedToNetwork(applicationContext)){
                         searchByTitle(edtSearch.text.toString())
                     }else{
-                        Toast.makeText(applicationContext, "Connect to Wifi or mobile data", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext, R.string.connect_to_internet, Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -74,8 +76,10 @@ class SearchActivity : AppCompatActivity(),
         val retrofitClient = NetworkUtils
             .getRetrofitInstance(Constants.TMDB_BASE_URL)
 
+        val language = Locale.getDefault().language + "-" + Locale.getDefault().country
+
         val tmdbServer = retrofitClient.create(TMDBServer::class.java)
-        val callback = tmdbServer.getMovieSearchByTiltle(formatedQuery)
+        val callback = tmdbServer.getMovieSearchByTiltle(formatedQuery, language)
 
         callback.enqueue(object : Callback<MoviesResult> {
             override fun onFailure(call: Call<MoviesResult>, t: Throwable) {
@@ -86,7 +90,7 @@ class SearchActivity : AppCompatActivity(),
                 if (!response.isSuccessful()) {
                     Toast.makeText(
                         baseContext,
-                        "Error code: " + response.code().toString(),
+                        "Error: " + response.code().toString(),
                         Toast.LENGTH_SHORT
                     ).show()
                     return
@@ -117,8 +121,10 @@ class SearchActivity : AppCompatActivity(),
         val retrofitClient = NetworkUtils
             .getRetrofitInstance(Constants.TMDB_BASE_URL)
 
+        val language = Locale.getDefault().language + "-" + Locale.getDefault().country
+
         val tmdbServer = retrofitClient.create(TMDBServer::class.java)
-        val callback = tmdbServer.getTvShowsSearchByTiltle(formatedQuery)
+        val callback = tmdbServer.getTvShowsSearchByTiltle(formatedQuery, language)
 
         callback.enqueue(object : Callback<TvShowResult> {
             override fun onFailure(call: Call<TvShowResult>, t: Throwable) {
@@ -129,7 +135,7 @@ class SearchActivity : AppCompatActivity(),
                 if (!response.isSuccessful()) {
                     Toast.makeText(
                         baseContext,
-                        "Error code: " + response.code().toString(),
+                        "Error: " + response.code().toString(),
                         Toast.LENGTH_SHORT
                     ).show()
                     return
@@ -199,7 +205,7 @@ class SearchActivity : AppCompatActivity(),
 
             startActivity(intent)
         }else{
-            Toast.makeText(applicationContext, "Connect to Wifi or mobile data", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, R.string.connect_to_internet, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -210,7 +216,7 @@ class SearchActivity : AppCompatActivity(),
 
             startActivity(intent)
         }else{
-            Toast.makeText(applicationContext, "Connect to Wifi or mobile data", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, R.string.connect_to_internet, Toast.LENGTH_SHORT).show()
         }
 
     }

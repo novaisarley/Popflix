@@ -21,6 +21,8 @@ import kotlinx.android.synthetic.main.activity_movie_specification.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MovieSpecificationActivity : AppCompatActivity(),
@@ -75,7 +77,7 @@ class MovieSpecificationActivity : AppCompatActivity(),
                 setShowContent(it)
             }
         } else {
-            Toast.makeText(applicationContext, "Connect to Wifi or mobile data", Toast.LENGTH_SHORT)
+            Toast.makeText(applicationContext, R.string.connect_to_internet, Toast.LENGTH_SHORT)
                 .show()
         }
 
@@ -160,8 +162,10 @@ class MovieSpecificationActivity : AppCompatActivity(),
         val retrofitClient = NetworkUtils
             .getRetrofitInstance(Constants.TMDB_BASE_URL)
 
+        val language = Locale.getDefault().language + "-" + Locale.getDefault().country
+
         val tmdbServer = retrofitClient.create(TMDBServer::class.java)
-        val callback = tmdbServer.getMovieCredits(id)
+        val callback = tmdbServer.getMovieCredits(id, language)
 
         callback.enqueue(object : Callback<CreditsResult> {
             override fun onFailure(call: Call<CreditsResult>, t: Throwable) {
@@ -172,7 +176,7 @@ class MovieSpecificationActivity : AppCompatActivity(),
                 if (!response.isSuccessful()) {
                     Toast.makeText(
                         baseContext,
-                        "Error code: " + response.code().toString(),
+                        "Error: " + response.code().toString(),
                         Toast.LENGTH_SHORT
                     ).show()
                     return
@@ -191,8 +195,10 @@ class MovieSpecificationActivity : AppCompatActivity(),
         val retrofitClient = NetworkUtils
             .getRetrofitInstance(Constants.TMDB_BASE_URL)
 
+        val language = Locale.getDefault().language + "-" + Locale.getDefault().country
+
         val tmdbServer = retrofitClient.create(TMDBServer::class.java)
-        val callback = tmdbServer.getTvShowCredits(id)
+        val callback = tmdbServer.getTvShowCredits(id, language)
 
         callback.enqueue(object : Callback<CreditsResult> {
             override fun onFailure(call: Call<CreditsResult>, t: Throwable) {
@@ -203,7 +209,7 @@ class MovieSpecificationActivity : AppCompatActivity(),
                 if (!response.isSuccessful()) {
                     Toast.makeText(
                         baseContext,
-                        "Error code: " + response.code().toString(),
+                        "Error: " + response.code().toString(),
                         Toast.LENGTH_SHORT
                     ).show()
                     return

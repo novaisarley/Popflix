@@ -113,7 +113,7 @@
                     android:fontFamily="@font/proxima_nova_extrabold"
                     android:text="@string/popular_movies"
                     android:textColor="#0d253f"
-                    android:textSize="25sp"
+                    android:textSize="23sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -126,7 +126,7 @@
                     android:fontFamily="@font/proxima_nova_extrabold"
                     android:text="@string/popular_tv_shows"
                     android:textColor="#0d253f"
-                    android:textSize="25sp"
+                    android:textSize="23sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rv_popular_movies" />
 
@@ -139,7 +139,7 @@
                     android:fontFamily="@font/proxima_nova_extrabold"
                     android:text="@string/top_rated_movies"
                     android:textColor="#0d253f"
-                    android:textSize="25sp"
+                    android:textSize="23sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rv_shows" />
 
@@ -152,7 +152,7 @@
                     android:fontFamily="@font/proxima_nova_extrabold"
                     android:text="@string/trending_celebs"
                     android:textColor="#0d253f"
-                    android:textSize="25sp"
+                    android:textSize="23sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rv_top_rated_movies" />
 

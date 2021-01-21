@@ -29,6 +29,8 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity(),
     ItemClickListener, ConnectionListener {
@@ -64,7 +66,7 @@ class MainActivity : AppCompatActivity(),
         if (Connection.isConnectedToNetwork(applicationContext)) {
             populateRecyclerViews()
         } else {
-            Toast.makeText(applicationContext, "Connect to Wifi or mobile data", Toast.LENGTH_LONG).show()
+            Toast.makeText(applicationContext, getString(R.string.connect_to_internet), Toast.LENGTH_LONG).show()
             startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
         }
     }
@@ -80,8 +82,10 @@ class MainActivity : AppCompatActivity(),
         val retrofitClient = NetworkUtils
             .getRetrofitInstance(Constants.TMDB_BASE_URL)
 
+        val language = Locale.getDefault().language + "-" + Locale.getDefault().country
+
         val tmdbServer = retrofitClient.create(TMDBServer::class.java)
-        val callback = tmdbServer.getPopularMovies()
+        val callback = tmdbServer.getPopularMovies(language)
 
         callback.enqueue(object : Callback<MoviesResult> {
             override fun onFailure(call: Call<MoviesResult>, t: Throwable) {
@@ -92,7 +96,7 @@ class MainActivity : AppCompatActivity(),
                 if (!response.isSuccessful()) {
                     Toast.makeText(
                         baseContext,
-                        "Error code: " + response.code().toString(),
+                        "Error: " + response.code().toString(),
                         Toast.LENGTH_SHORT
                     ).show()
                     return
@@ -113,8 +117,10 @@ class MainActivity : AppCompatActivity(),
         val retrofitClient = NetworkUtils
             .getRetrofitInstance(Constants.TMDB_BASE_URL)
 
+        val language = Locale.getDefault().language + "-" + Locale.getDefault().country
+
         val tmdbServer = retrofitClient.create(TMDBServer::class.java)
-        val callback = tmdbServer.getTopRatedMovies()
+        val callback = tmdbServer.getTopRatedMovies(language)
 
         callback.enqueue(object : Callback<MoviesResult> {
             override fun onFailure(call: Call<MoviesResult>, t: Throwable) {
@@ -125,7 +131,7 @@ class MainActivity : AppCompatActivity(),
                 if (!response.isSuccessful()) {
                     Toast.makeText(
                         baseContext,
-                        "Error code: " + response.code().toString(),
+                        "Error: " + response.code().toString(),
                         Toast.LENGTH_SHORT
                     ).show()
                     return
@@ -145,8 +151,10 @@ class MainActivity : AppCompatActivity(),
         val retrofitClient = NetworkUtils
             .getRetrofitInstance(Constants.TMDB_BASE_URL)
 
+        val language = Locale.getDefault().language + "-" + Locale.getDefault().country
+
         val tmdbServer = retrofitClient.create(TMDBServer::class.java)
-        val callback = tmdbServer.getPopularShows()
+        val callback = tmdbServer.getPopularShows(language)
 
         callback.enqueue(object : Callback<TvShowResult> {
             override fun onFailure(call: Call<TvShowResult>, t: Throwable) {
@@ -157,7 +165,7 @@ class MainActivity : AppCompatActivity(),
                 if (!response.isSuccessful()) {
                     Toast.makeText(
                         baseContext,
-                        "Error code: " + response.code().toString(),
+                        "Error: " + response.code().toString(),
                         Toast.LENGTH_SHORT
                     ).show()
                     return
@@ -178,8 +186,10 @@ class MainActivity : AppCompatActivity(),
         val retrofitClient = NetworkUtils
             .getRetrofitInstance(Constants.TMDB_BASE_URL)
 
+        val language = Locale.getDefault().language + "-" + Locale.getDefault().country
+
         val tmdbServer = retrofitClient.create(TMDBServer::class.java)
-        val callback = tmdbServer.getTrendingPeople()
+        val callback = tmdbServer.getTrendingPeople(language)
 
         callback.enqueue(object : Callback<PeopleResult> {
             override fun onFailure(call: Call<PeopleResult>, t: Throwable) {
@@ -190,7 +200,7 @@ class MainActivity : AppCompatActivity(),
                 if (!response.isSuccessful()) {
                     Toast.makeText(
                         baseContext,
-                        "Error code: " + response.code().toString(),
+                        "Error: " + response.code().toString(),
                         Toast.LENGTH_SHORT
                     ).show()
                     return
@@ -265,7 +275,7 @@ class MainActivity : AppCompatActivity(),
 
             startActivity(intent)
         } else {
-            Toast.makeText(applicationContext, "Connect to Wifi or mobile data", Toast.LENGTH_SHORT)
+            Toast.makeText(applicationContext, R.string.connect_to_internet, Toast.LENGTH_SHORT)
                 .show()
         }
 
@@ -278,7 +288,7 @@ class MainActivity : AppCompatActivity(),
 
             startActivity(intent)
         } else {
-            Toast.makeText(applicationContext, "Connect to Wifi or mobile data", Toast.LENGTH_SHORT)
+            Toast.makeText(applicationContext, R.string.connect_to_internet, Toast.LENGTH_SHORT)
                 .show()
         }
 

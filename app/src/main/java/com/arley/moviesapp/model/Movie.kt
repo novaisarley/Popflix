@@ -20,9 +20,6 @@ data class Movie(
     @SerializedName("original_title")
     val originalTitle: String?,
 
-    @SerializedName("original_name")
-    val originalname: String?,
-
     @SerializedName("overview")
     val overview: String?,
 
@@ -51,7 +48,6 @@ data class Movie(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
         parcel.readDouble(),
         parcel.readString(),
         parcel.readString(),
@@ -67,7 +63,6 @@ data class Movie(
         parcel.writeInt(id)
         parcel.writeString(originalLanguage)
         parcel.writeString(originalTitle)
-        parcel.writeString(originalname)
         parcel.writeString(overview)
         parcel.writeDouble(popularity)
         parcel.writeString(posterPath)
@@ -89,7 +84,7 @@ data class Movie(
         fun createEmptyMovie(): Movie {
             val movie: Movie = Movie(
                 adult = false, posterPath = "", title = "Loading...", backdropPath = "",
-                id = 0, originalLanguage = "", originalname = "", originalTitle = "", overview = "",
+                id = 0, originalLanguage = "", originalTitle = "", overview = "",
                 popularity = 0.0, releaseDate = "", voteAverage = 0.0f, voteCount = 0
             )
             return movie
@@ -99,6 +94,4 @@ data class Movie(
             return arrayOfNulls(size)
         }
     }
-
-
 }

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Popflix</string>
+    <string name="popular_tv_shows">Séries Populares</string>
+    <string name="popular_movies">Filmes Populares</string>
+    <string name="top_rated_movies">Filmes mais bem avaliados</string>
+    <string name="movies">Filmes</string>
+    <string name="movies_and_tvshows">Filmes e Séries</string>
+    <string name="tv_shows">Séries</string>
+    <string name="search_for_movies_and_tv_shows">Pesquise por filmes ou séries</string>
+    <string name="synopsis">Sinopse</string>
+    <string name="cast">Elenco</string>
+    <string name="release_date">Data de Lançamento</string>
+    <string name="crew">Membros da Equipe</string>
+    <string name="connected">Conectado</string>
+    <string name="disconnected">Conexão perdida</string>
+    <string name="search_button">Botão de pesquisar</string>
+    <string name="back_button">Botão de voltar</string>
+    <string name="connect_to_internet">Conecte ao wifi ou dados móveis</string>
+    <string name="trending_celebs">Celebridades em Alta</string>
+</resources>

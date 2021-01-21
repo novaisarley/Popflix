@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Popflix</string>
-    <string name="popular_tv_shows">Popular TV Shows</string>
+    <string name="popular_tv_shows">Popular Tv Shows</string>
     <string name="popular_movies">Popular Movies</string>
     <string name="top_rated_movies">Top Rated Movies</string>
     <string name="movies">Movies</string>
