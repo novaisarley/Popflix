@@ -179,7 +179,7 @@
     android:id="@+id/adView"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
-    app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+    app:adUnitId="ca-app-pub-4663847602298272/7232641461"
     app:adSize="BANNER"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
