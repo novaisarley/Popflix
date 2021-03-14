@@ -44,7 +44,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
@@ -159,12 +159,12 @@
                     android:id="@+id/rv_person"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_person"
-                    tools:itemCount="1"
                     android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView3">
+                    app:layout_constraintTop_toBottomOf="@id/textView3"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/item_person">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
@@ -174,12 +174,25 @@
         </LinearLayout>
     </ScrollView>
 
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:adSize="BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </com.google.android.gms.ads.AdView>
+
+
     <LinearLayout
         android:id="@+id/layout_connection_status"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:visibility="gone"
         android:background="@color/colorDisconnected"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -188,10 +201,11 @@
             android:id="@+id/tv_connection_status"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/disconnected"
-            android:textAlignment="center"
             android:fontFamily="@font/proxima_nova_bold"
             android:gravity="center"
+            android:text="@string/disconnected"
+            android:textAlignment="center"
             android:textColor="@color/white" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

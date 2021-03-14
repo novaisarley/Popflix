@@ -19,7 +19,11 @@ import com.arley.moviesapp.adapter.ShowsSearchAdapter
 import com.arley.moviesapp.listener.ConnectionListener
 import com.arley.moviesapp.model.*
 import com.arley.moviesapp.utils.Connection
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_search.*
+import kotlinx.android.synthetic.main.activity_search.adView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,6 +43,10 @@ class SearchActivity : AppCompatActivity(),
         setContentView(R.layout.activity_search)
 
         Connection.startVerification(applicationContext, this)
+
+        MobileAds.initialize(applicationContext)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
 
         moviesRecyclerView = activity_search_rv_movies
         showsRecyclerView = activity_search_rv_shows
@@ -185,7 +193,6 @@ class SearchActivity : AppCompatActivity(),
 
     fun isTablet() : Boolean{
         try {
-
             val dm: DisplayMetrics = applicationContext.getResources().getDisplayMetrics();
             val screenWidth : Float = dm.widthPixels / dm.xdpi;
             val screenHeight : Float = dm.heightPixels / dm.ydpi;

@@ -12,6 +12,11 @@
         android:roundIcon="@drawable/round_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.MoviesApp">
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4663847602298272~8373498595"/>
+
         <activity android:name=".ui.SplashActivity" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

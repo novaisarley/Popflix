@@ -17,7 +17,11 @@ import com.arley.moviesapp.listener.ItemClickListener
 import com.arley.moviesapp.model.*
 import com.arley.moviesapp.utils.Connection
 import com.bumptech.glide.Glide
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_movie_specification.*
+import kotlinx.android.synthetic.main.activity_movie_specification.adView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -61,6 +65,10 @@ class MovieSpecificationActivity : AppCompatActivity(),
 
         rvCast = rv_cast
         rvCrew = rv_crew
+
+        MobileAds.initialize(applicationContext)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
 
         ibBack.setOnClickListener(object : View.OnClickListener {
             override fun onClick(v: View?) {

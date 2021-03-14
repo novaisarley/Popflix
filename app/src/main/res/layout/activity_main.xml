@@ -43,13 +43,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/adView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -160,12 +160,12 @@
                     android:id="@+id/rv_person"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/item_person"
-                    tools:itemCount="1"
                     android:layout_marginTop="10dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/textView3">
+                    app:layout_constraintTop_toBottomOf="@id/textView3"
+                    tools:itemCount="1"
+                    tools:listitem="@layout/item_person">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
@@ -174,6 +174,18 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <com.google.android.gms.ads.AdView
+    android:id="@+id/adView"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+    app:adSize="BANNER"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+</com.google.android.gms.ads.AdView>
 
     <LinearLayout
         android:id="@+id/layout_connection_status"

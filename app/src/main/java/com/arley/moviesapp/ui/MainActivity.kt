@@ -22,6 +22,8 @@ import com.arley.moviesapp.listener.ItemClickListener
 import com.arley.moviesapp.model.*
 import com.arley.moviesapp.utils.Connection
 import com.arley.moviesapp.utils.NetworkUtils
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -48,6 +50,12 @@ class MainActivity : AppCompatActivity(),
 
         Connection.startVerification(applicationContext, this)
 
+        MobileAds.initialize(this@MainActivity)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+
+        //ca-app-pub-4663847602298272/7232641461
+
         popularMoviesRecyclerView = rv_popular_movies
         topRatedMoviesRecyclerView = rv_top_rated_movies
         showsRecyclerView = rv_shows
@@ -66,7 +74,11 @@ class MainActivity : AppCompatActivity(),
         if (Connection.isConnectedToNetwork(applicationContext)) {
             populateRecyclerViews()
         } else {
-            Toast.makeText(applicationContext, getString(R.string.connect_to_internet), Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                applicationContext,
+                getString(R.string.connect_to_internet),
+                Toast.LENGTH_LONG
+            ).show()
             startActivity(Intent(Settings.ACTION_WIFI_SETTINGS))
         }
     }
